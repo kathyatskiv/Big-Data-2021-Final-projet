@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../public")
+
 import json
 import requests
 from kafka import KafkaProducer, KafkaConsumer
