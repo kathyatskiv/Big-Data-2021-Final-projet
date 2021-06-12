@@ -16,7 +16,7 @@ session = cluster.connect('meetups')
 def get_all_countries():
     rows = session.execute(
         """
-        SELECT DISTINCT country FROM events_by_country_and_city;
+        SELECT DISTINCT country FROM cities_by_country;
         """
     )
 
@@ -33,7 +33,7 @@ def get_all_cities_by_country(country):
     rows = session.execute(
         """
         SELECT country, city 
-        FROM events_by_country_and_city
+        FROM cities_by_country
         WHERE country='%s';
         """ % country
     )
