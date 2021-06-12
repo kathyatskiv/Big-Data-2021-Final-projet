@@ -1,3 +1,5 @@
 .idea/
 config.py
 __pycache__/
+config
+cassandra_queries
