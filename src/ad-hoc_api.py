@@ -71,8 +71,56 @@ def get_event_by(event_id):
             'country' : row.country
         })
 
+    return jsonify(events)
+
+# Return the list of the groups which have created events in the specified city. It should contain the following details:
+# a) City name
+# b) Group name
+# c) Group id
+@app.route("/groups_by_city/<city>", methods=['GET'])
+def get_groups_by_city(city):
+    rows = session.execute(
+        """
+        SELECT city, group_name, group_id
+        FROM groups_by_city
+        WHERE city='%s';
+        """ % city
+    )
+
+    groups = []
+    for row in rows:
+        groups.append({
+            'city' : row.city,
+            'group_name' : row.group_name,
+            'group_id' : row.group_id
+        })
+
+    return jsonify(groups)
+
+# Return all the events that were created by the specified group (group id will be the input parameter). Each event in the list should have the format as in the API #3.
+@app.route("/events_by_group/<group_id>", methods=['GET'])
+def get_events_by_group(group_id):
+    rows = session.execute(
+        """
+        SELECT event_name, event_time, group_name, city, country
+        FROM events_by_group
+        WHERE group_id=%s
+        ALLOW FILTERING;
+        """ % group_id
+    )
+
+    events = []
+    for row in rows:
+        events.append({
+            'event_name' : row.event_name,
+            'event_time' : row.event_time,
+            'group_name' : row.group_name,
+            'city' : row.city,
+            'country' : row.country
+        })
 
     return jsonify(events)
+
 
 if __name__ == "__main__" :
     app.run(debug=True, port=5001,host="127.0.0.1")
