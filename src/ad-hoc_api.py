@@ -13,7 +13,7 @@ import json
 app = Flask(__name__)
 
 auth_provider = PlainTextAuthProvider(username=cassandra_username, password=cassandra_password)
-cluster = Cluster([cassandra], port=9042, auth_provider=auth_provider)
+cluster = Cluster([cassandra_host], port=9042, auth_provider=auth_provider)
 session = cluster.connect('meetups')
 
 # Return the list of all the countries for which the events were created.
