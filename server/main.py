@@ -3,6 +3,7 @@ sys.path.append("../public")
 from config import cassandra_username, cassandra_password, cassandra_host
 
 from flask import Flask, request, jsonify
+from flask_restful import Api, Resource
 from datetime import datetime, timedelta
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
@@ -168,4 +169,4 @@ def get_most_popular_topic_by_country():
 
 
 if __name__ == "__main__" :
-    app.run(debug=True)
+    app.run(debug=True, port=5001,host="127.0.0.1")
