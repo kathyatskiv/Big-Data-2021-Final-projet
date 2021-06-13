@@ -55,7 +55,7 @@ def get_all_cities_by_country(country):
 def get_event_by(event_id):
     rows = session.execute(
         """
-        SELECT event_name, event_time, group_name, city, country
+        SELECT event_name, event_time, group_name, city, country, group_topics
         FROM events_by_id
         WHERE event_id='%s';
         """ % event_id
@@ -66,12 +66,13 @@ def get_event_by(event_id):
         events.append({
             'event_name' : row.event_name,
             'event_time' : row.event_time,
+            'group_topics' : row.group_topics,
             'group_name' : row.group_name,
             'city' : row.city,
             'country' : row.country
         })
 
-    return jsonify(events)
+    return jsonify(*events)
 
 # Return the list of the groups which have created events in the specified city. It should contain the following details:
 # a) City name
@@ -102,7 +103,7 @@ def get_groups_by_city(city):
 def get_events_by_group(group_id):
     rows = session.execute(
         """
-        SELECT event_name, event_time, group_name, city, country
+        SELECT event_name, event_time, group_name, city, country, group_topics
         FROM events_by_group
         WHERE group_id=%s
         ALLOW FILTERING;
@@ -114,6 +115,7 @@ def get_events_by_group(group_id):
         events.append({
             'event_name' : row.event_name,
             'event_time' : row.event_time,
+            'group_topics' : row.group_topics,
             'group_name' : row.group_name,
             'city' : row.city,
             'country' : row.country
