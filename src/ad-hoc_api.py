@@ -1,3 +1,7 @@
+import sys
+sys.path.append("../public")
+from config import cassandra_username, cassandra_password, cassandra_host
+
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from datetime import datetime, timedelta
@@ -5,10 +9,11 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 import json
 
+
 app = Flask(__name__)
 
-auth_provider = PlainTextAuthProvider(username='cassandra', password='qjkBX3TwWtvm')
-cluster = Cluster(['35.230.169.127'], port=9042, auth_provider=auth_provider)
+auth_provider = PlainTextAuthProvider(username=cassandra_username, password=cassandra_password)
+cluster = Cluster([cassandra], port=9042, auth_provider=auth_provider)
 session = cluster.connect('meetups')
 
 # Return the list of all the countries for which the events were created.
