@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 import json
-
+import requests
 
 app = Flask(__name__)
 
@@ -127,6 +127,45 @@ def get_events_by_group(group_id):
         })
 
     return jsonify(events)
+
+# Return the statistics with the number of newly created events per each country for the last 6 full hours, excluding the last hour. The report should be in a format : [{country1: number1}, {country2: number2},..]. 
+@app.route("/new_events_amount_by_country/", methods=['GET'])
+def get_new_events_amount_by_country():
+    url = 'https://storage.googleapis.com/ucu-bigata-project/reports/query1/part-00000-ae686376-83a7-452a-a619-fb3ef6a39540-c000.json'
+    f = requests.get(url, allow_redirects=True)
+    
+    for line in f.iter_lines():
+        if line:
+            decoded_line = line.decode('utf-8')
+            countries_statistics = json.loads(decoded_line)
+    
+    return jsonify(countries_statistics)
+
+# Return the statistics containing the information about which groups posted the events at each US state in the last 3 full hours, excluding the last hour. The names of the states should be full, not only the state code.
+@app.route("/us_active_groups_by_state/", methods=['GET'])
+def get_us_active_groups_by_state():
+    url = 'https://storage.googleapis.com/ucu-bigata-project/reports/query2/part-00000-50589504-24c6-43d0-a9ec-731da31cbb7a-c000.json'
+    f = requests.get(url, allow_redirects=True)
+    
+    for line in f.iter_lines():
+        if line:
+            decoded_line = line.decode('utf-8')
+            us_states_statistics = json.loads(decoded_line)
+    
+    return jsonify(us_states_statistics)
+
+# The most popular topic of the events for each country posted in the last 6 hours, excluding the last hour. The popularity is calculated based on the number of occurrences topic has amongst all the topics in all the events created in that country during the specified period. 
+@app.route("/most_popular_topic_by_country/", methods=['GET'])
+def get_most_popular_topic_by_country():
+    url = 'https://storage.googleapis.com/ucu-bigata-project/reports/query3/part-00000-0518cbb2-56d5-44e0-a7de-2f546b1b6562-c000.json'
+    f = requests.get(url, allow_redirects=True)
+    
+    for line in f.iter_lines():
+        if line:
+            decoded_line = line.decode('utf-8')
+            most_populsr_topic_statistics = json.loads(decoded_line)
+    
+    return jsonify(most_populsr_topic_statistics)
 
 
 if __name__ == "__main__" :
