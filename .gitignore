@@ -2,4 +2,5 @@
 config.py
 __pycache__/
 config
+.gcloudignore
 cassandra_queries

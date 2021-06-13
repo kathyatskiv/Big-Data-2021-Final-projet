@@ -74,6 +74,6 @@ if __name__ == "__main__":
     second_report = second_query(df, end_time - timedelta(hours=3), end_time)
     third_report = third_query(df, end_time - timedelta(hours=6), end_time)
 
-    store_report(first_report, output_folder + "query1/report.json")
-    store_report(second_report, output_folder + "query2/report.json")
-    store_report(third_report, output_folder + "query3/report.json")
+    store_report(first_report, output_folder + "query1/")
+    store_report(second_report, output_folder + "query2/")
+    store_report(third_report, output_folder + "query3/")
