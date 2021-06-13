@@ -2,6 +2,8 @@
  
 [Streaming data source](http://stream.meetup.com/2/rsvps)
 
+[Deployed python server](https://ucu-big-data-final-project.uc.r.appspot.com)
+
 **Category A** is a set of REST APIs that will return the precomputed report data. The data for these reports should be prepared in advance with batch processing operations.
 
 **Category B** is a set of REST APIs that will return the results of ad-hoc queries. It means that you will provide parameters to the API and it should respond according to the specified values.
