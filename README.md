@@ -8,8 +8,14 @@
 
 
 **Design Document of the system**
+
+
 ![big_data_project](https://user-images.githubusercontent.com/44239963/121808777-ccd05a00-cc62-11eb-8d26-49d060987794.png)
 
+
+
 **Cassandra Tables**
+
+
 ![cassandra_model](https://user-images.githubusercontent.com/44239963/121817438-27c97780-cc8a-11eb-89cf-e096472808cf.png)
 
